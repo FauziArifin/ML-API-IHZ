@@ -30,7 +30,7 @@ uvicorn main:app --reload
 
 secara default dia akan jalan secara lokal di 127.0.0.1 dengan port 8000 
 Output jika runnning berhasil
-`![image](/Hasil_Running.png) `
+![image](/Hasil_Running.png) 
 
 jika ingin di jalankan di port dan address host yang berbeda bisa mengunakan option --host dan --port
 ```
@@ -38,9 +38,9 @@ uvicorn --host [host address] --port [nilai port]  main:app --reload
 ```
 
 contoh hasil running mengunakan port dan address host yang berbeda
-```
-![image](/Hasil_Running.png)  
-```
+
+![image](/Hasil_Running_2.png)  
+
 
 # Menggunakan API
 untuk mengunakan API bisa dengan menyiapkan body parameternya berupa format JSON dengan format seperti berikut
@@ -59,18 +59,41 @@ untuk mengunakan API bisa dengan menyiapkan body parameternya berupa format JSON
 }
 ```
 
-dan untuk URL APInya dengan format sebagai berikut
+dan untuk URL API mengunakan format sebagai berikut
 
-`
+```
 http://[Host]:[Port]/predict
-`
+```
 
 dan request method yang digunakan adalah **PUT**
+API akan mengembalikan JSON juga dengan dua tipe format, yaitu format jika statusnya ONLINE dan format jika statusnya OFFLINE
+yang membedakan utama hanya saat di OFFLINE dimana akan memberikan array of string yang menyatakan permasalahnya dimana
+
+## Hasil return API saat mengklasifikasi ONLINE
+```
+{
+    "Status": "ONLINE"
+}
+```
+## Hasil return API saat mengklasifikasi OFFLINE
+```
+{
+    "Status": "OFFLINE",
+    "Info": [
+        "- network_onu_bias_curr: 0.0 <= 0.5",
+        "- network_olt_rx_pwr: -22.0 > -62.39104461669922",
+        "- network_onu_tx_pwr: -22.0 <= 2.062000036239624"
+    ]
+}
+```
 
 ## Contoh mengunakan POSTMAN
-```
+### Saat ONLINE
 ![image](https://user-images.githubusercontent.com/46880550/120590764-45663800-c465-11eb-9a2c-799044e827dd.png)
-```
+### Saat OFFLINE
+![image](https://user-images.githubusercontent.com/46880550/120592052-63349c80-c467-11eb-98f1-f5b49c5a8947.png)
+
+
 ## Contoh mengunakan javascript dengan XMLHttpRequest
 ```
 var xhttp = new XMLHttpRequest();
