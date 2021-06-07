@@ -23,7 +23,7 @@ pip install scikit-learn
 ```
 
 # Menjalankan API
-untuk menjalankan API cukup mejalankan command berikut di terminal kami
+untuk menjalankan API cukup mejalankan command berikut di terminal
 ```
 uvicorn main:app --reload
 ```
@@ -41,6 +41,33 @@ contoh hasil running mengunakan port dan address host yang berbeda
 
 ![image](/Hasil_Running_2.png)  
 
+
+# Mengganti Model
+untuk mengganti model, cukup rename pada main.py model pkl yang diinginkan 
+```
+clf = pickle.load(open('.\nama_model.pkl', 'rb'))
+```
+
+secara default akan menjalankan model file model_minimal_samples_5000.pkl 
+Snipshoot codenya
+```
+#? Loading Model dan Nama attribute
+clf = pickle.load(open('.\model_minimal_samples_5000.pkl', 'rb'))
+feature_names = ['network_onu_pwr_spl', 'network_onu_temp', 'network_onu_bias_curr',
+			 'network_onu_rx_pwr', 'network_onu_tx_pwr', 'network_olt_pwr_spl',
+			 'network_olt_temp', 'network_olt_bias_curr', 'network_olt_tx_pwr',
+			 'network_olt_rx_pwr']
+```
+
+jika ingin mengubah modelnya ke model lain, hanya mengubah sesuai nama file modelnya. Contoh
+```
+#? Loading Model dan Nama attribute
+clf = pickle.load(open('.\model_without_minimal_samples.pkl', 'rb'))
+feature_names = ['network_onu_pwr_spl', 'network_onu_temp', 'network_onu_bias_curr',
+			 'network_onu_rx_pwr', 'network_onu_tx_pwr', 'network_olt_pwr_spl',
+			 'network_olt_temp', 'network_olt_bias_curr', 'network_olt_tx_pwr',
+			 'network_olt_rx_pwr']
+```
 
 # Menggunakan API
 untuk mengunakan API bisa dengan menyiapkan body parameternya berupa format JSON dengan format seperti berikut

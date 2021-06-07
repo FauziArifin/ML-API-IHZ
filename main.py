@@ -61,7 +61,7 @@ def show_path(clf, data, feature_names):
 	return result
 
 #? Loading Model dan Nama attribute
-clf = pickle.load(open('.\Klasifikasi_Koneksi_DT_v3.pkl', 'rb'))
+clf = pickle.load(open('.\model_minimal_samples_5000.pkl', 'rb'))
 feature_names = ['network_onu_pwr_spl', 'network_onu_temp', 'network_onu_bias_curr',
 			 'network_onu_rx_pwr', 'network_onu_tx_pwr', 'network_olt_pwr_spl',
 			 'network_olt_temp', 'network_olt_bias_curr', 'network_olt_tx_pwr',
@@ -81,11 +81,11 @@ def read_item(data: Data):
 		#? diprediksi mengunakan model yang sudah di import						
 		prediksi = clf.predict([data_arr])
 
-		#? Jika hasil prediksinya 1 maka akan kembalikan status ONLINE
-		if (prediksi == 1):
+		#? Jika hasil prediksinya 0 maka akan kembalikan status ONLINE
+		if (prediksi == 0):
 			return { "Status" : "ONLINE"}
 
-		#? Jika hasil prediksi 0 maka akan dikemalikan Status OFFLINE dan
+		#? Jika hasil prediksi 1 maka akan dikemalikan Status OFFLINE dan
 		#? attribute yang membuatnya OFFLINE	
 		else:
 			path = show_path(clf,data_arr,feature_names)
